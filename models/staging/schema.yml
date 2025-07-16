@@ -1,0 +1,62 @@
+
+version: 2
+
+sources:
+  - name: sales_car
+    description: This is a replica of the postgrees (refazer)
+    tables:
+      - name: company_branches
+        description: This table contains infomations about company branches
+      - name: order_items
+        description: This table contains infomations about order items
+      - name: order_types
+        description: This table contains infomations about order types
+      - name: orders
+        description: This table contains infomations about order
+        tests:
+          - dbt_utils.unique_combination_of_columns:
+              combination_of_columns:
+                - id
+                - order_date
+        columns:
+          - name: id
+            description: Primary key of the orders table
+            tests:
+              - unique
+              - not_null
+          - name: customer_id
+            description: Foreign Key of the customers table
+            tests:
+              - not_null
+          - name: departament_id
+            description: Foreign Key of column departament in employees table            	
+          - name: employee_id
+            description: Foreign Key of the order type table
+          - name: order_type_id
+            description: Foreign Key of the order type table
+            tests:
+              - not_null
+          - name: order_status
+            description: Description of order status in orders table
+            tests:
+              - not_null
+              - accepted_values:
+                  values: ['delayed', 'on hold', 'pending', 'shipped']  
+          - name: order_date
+            description: Column date of orders table
+            tests:
+              - not_null
+              - dbt_utils.accepted_range:
+                  max_value: "current_timestamp()"
+          - name: return_date
+            description: Column return date of orders table
+            tests:
+              - not_null
+          
+  - name: seeds
+    description: This is a replica of the postgrees (refazer)
+    tables:
+      - name: customers
+        description: This is a replica of the customers file.csv
+      - name: employees
+        description: This is a replica of the employees file.csv
