@@ -1,0 +1,32 @@
+
+version: 2
+
+models:
+  - name: dim_sales_details
+    description: Dimension about sales details
+    tests:
+      - dbt_utils.fewer_rows_than:
+          compare_model: ref('stg_order_items')
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - year_manufacturer
+            - color
+            - status
+    columns:
+      - name: sk_sales_details
+        description: The primary key of the sales details
+        tests:
+          - unique
+          - not_null
+      - name: year_manufacturer
+        description: Description about year of manufacturer in sales details
+        tests:
+          - not_null
+      - name: color
+        description: Description about color sales details
+        tests:
+          - not_null
+      - name: status
+        description: Description about status sales details
+        tests:
+          - not_null

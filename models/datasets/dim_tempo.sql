@@ -1,0 +1,1 @@
+{{ dbt_date.get_date_dimension("2020-03-01", modules.datetime.datetime.now().strftime('%Y-%m-%d')) }}

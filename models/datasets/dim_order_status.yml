@@ -1,0 +1,21 @@
+
+version: 2
+
+models:
+  - name: dim_order_status
+    description: Dimension about order status
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - status
+
+    columns:
+      - name: sk_order_status
+        description: The primary key of the order status
+        tests:
+          - unique
+          - not_null
+      - name: status
+        description: Description order status
+        tests:
+          - not_null

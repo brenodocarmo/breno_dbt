@@ -1,0 +1,29 @@
+
+version: 2
+
+models:
+  - name: dim_vehicles
+    description: Dimension about vehicles
+    tests:
+      - dbt_utils.fewer_rows_than:
+          compare_model: ref('stg_order_items')
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - manufacturer
+            - model
+    columns:
+      - name: sk_vehicles
+        description: The primary key of the vehicles
+        tests:
+          - unique
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: int64
+      - name: manufacturer
+        description: Description about manufacturer in vehicles
+        tests:
+          - not_null
+      - name: model
+        description: Description about model vehicles
+        tests:
+          - not_null

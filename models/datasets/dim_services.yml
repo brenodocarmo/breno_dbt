@@ -1,0 +1,22 @@
+
+version: 2
+
+models:
+  - name: dim_services
+    description: Dimension about products
+    tests:
+      - dbt_utils.fewer_rows_than:
+          compare_model: ref('stg_order_items')
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - service
+    columns:
+      - name: sk_service
+        description: The primary key of the services
+        tests:
+          - unique
+          - not_null
+      - name: service
+        description: Description services
+        tests:
+          - not_null

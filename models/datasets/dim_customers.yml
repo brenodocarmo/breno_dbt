@@ -1,0 +1,87 @@
+
+version: 2
+
+models:
+  - name: dim_customers
+    description: Dimension about customers data
+    tests:
+      - dbt_utils.equal_rowcount:
+          compare_model: ref('stg_customers')
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - customers_id
+            - first_name
+            - last_name
+            - gender
+            - job_title
+            - phone
+            - email
+            - country_code
+            - country
+            - city
+            - latitude
+            - longitude
+            - is_recurring
+            - level
+            - registration_date
+    columns:
+      - name: customers_id
+        description: The primary key of the customers
+        tests:
+          - unique
+          - not_null
+      - name: first_name
+        description: Description customers first name
+        tests:
+          - not_null
+      - name: last_name
+        description: Description customers last name
+        tests:
+          - not_null
+      - name: gender
+        description: Description customers gender
+        tests:
+          - not_null
+      - name: job_title
+        description: Description customers job title
+        tests:
+          - not_null
+      - name: phone
+        description: Description about phone in customers
+        tests:
+          - not_null
+      - name: email
+        description: Description customers email
+        tests:
+          - not_null
+      - name: country_code
+        description: Description about country code in customers
+        tests:
+          - not_null
+      - name: country
+        description: Description about country cod in customers
+        tests:
+          - not_null
+      - name: city
+        description: Description about city in customers
+        tests:
+          - not_null
+      - name: latitude
+        description: Description about latitude in customers
+        tests:
+          - not_null
+      - name: longitude
+        description: Description about longitude in customers
+        tests:
+          - not_null
+      - name: is_recurring
+        description: Description about customers recurrency
+        tests:
+          - not_null
+      - name: level
+        description: Description about customers level
+        tests:
+          - not_null
+      - name: registration_date
+        description: Description about  date of registration date in customers
+
